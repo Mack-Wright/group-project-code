@@ -24,6 +24,11 @@ void down_release();
 void enter_release();
 void exit_release();
 
+bool up = false;
+bool down = false;
+bool enter = false;
+bool exit_key = false;
+
 // main() runs in its own thread in the OS
 int main()
 {
@@ -46,7 +51,19 @@ int main()
 
 void up_release(){
     button_sem.release();
-    
+    up = true;
+}
+void down_release(){
+    button_sem.release();
+    down = true;
+}
+void enter_release(){
+    button_sem.release();
+    enter = true;
+}
+void exit_release(){
+    button_sem.release();
+    exit_key = true;
 }
 
 void token_release(){
