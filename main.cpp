@@ -42,7 +42,6 @@ int main()
     arrow_change_func();
     
     while (true) {
-        arrow_change_func();
     };
 }
 
