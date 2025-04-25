@@ -74,20 +74,16 @@ void arrow_change_func(){
         lcd.printf(">Singleplayer"); //displays the select option for "Flying Ace"
         lcd.locate(0,1);//set cursor on row 2
         lcd.printf(" Multiplayer"); //displays the select option for "Combat Ace"
-        
-        
         }
 
         else{
-        if (down == true){
-            lcd.cls(); //clears the lcd screen
-            lcd.locate(0,0); //set cursor on row number 1 
-            lcd.printf(" Singleplayer"); //displays the select option for "Flying Ace"
-            lcd.locate(0,1);//set cursor on row 2
-            lcd.printf(">Multiplayer"); //displays the select option for "Combat Ace"
-            
+            if (down == true){
+                lcd.cls(); //clears the lcd screen
+                lcd.locate(0,0); //set cursor on row number 1 
+                lcd.printf(" Singleplayer"); //displays the select option for "Flying Ace"
+                lcd.locate(0,1);//set cursor on row 2
+                lcd.printf(">Multiplayer"); //displays the select option for "Combat Ace"
             }
-    
         }
         wait = false;
         up = false;
