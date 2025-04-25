@@ -4,6 +4,7 @@
 TextLCD lcd(D0, D1, D2, D3, D4, D5, TextLCD::LCD16x2);
 
 InterruptIn exit_button(D6,PullUp);    //console button
+
 InterruptIn left_up(D7,PullUp);     //left controller buttons
 InterruptIn left_down(D8,PullUp);
 InterruptIn left_enter(D9,PullUp);
