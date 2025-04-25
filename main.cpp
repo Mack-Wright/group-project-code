@@ -8,6 +8,7 @@ InterruptIn exit_button(D6,PullUp);    //console button
 InterruptIn left_up(D7,PullUp);     //left controller buttons
 InterruptIn left_down(D8,PullUp);
 InterruptIn left_enter(D9,PullUp);
+
 InterruptIn right_up(D10,PullUp);   //right controller buttons
 InterruptIn right_down(D11,PullUp);
 InterruptIn right_enter(D12,PullUp);
