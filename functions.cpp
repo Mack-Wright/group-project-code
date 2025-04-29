@@ -57,9 +57,9 @@ void button_func(){     // moves arrow up and down
                 singleplayer = false;
             }
         }
+        up_button = false;
+        down_button = false;
     }
-    up_button = false;
-    down_button = false;
 }
 
 void selection_func(){      // selects the gamemode when console button is pressed
