@@ -1,7 +1,7 @@
-#include "CombatAce.h"
+#include "FlyingAce.h"
 #include "Constants.h"
 
-CombatAce::CombatAce(int playerNumber)
+FlyingAce::FlyingAce(int playerNumber)
     : ship{1}
     , obstacle{15}
     //, o2{7}
@@ -14,7 +14,7 @@ CombatAce::CombatAce(int playerNumber)
     startGameloop();
 }
 
-void CombatAce::writeSprites() {
+void FlyingAce::writeSprites() {
     lcd.writeCustomCharacter(P1_SPRITE, P1_ADDRESS);
     lcd.writeCustomCharacter(P2_SPRITE, P2_ADDRESS);
     lcd.writeCustomCharacter(DESTROYED_SPRITE, DESTROYED_ADDRESS);
@@ -22,26 +22,26 @@ void CombatAce::writeSprites() {
     lcd.writeCustomCharacter(OBSTACLE_DOWN_SPRITE, OBSTACLE_DOWN_ADDRESS);
 }
 
-void CombatAce::startGameloop() {
+void FlyingAce::startGameloop() {
     render();
 
-    updater.attach(callback(this, &CombatAce::update), chrono::milliseconds(1000/UPS));
+    updater.attach(callback(this, &FlyingAce::update), chrono::milliseconds(1000/UPS));
 
-    updateThread.start(callback(this, &CombatAce::updateThreadFunc));
-    renderThread.start(callback(this, &CombatAce::renderThreadFunc));
-    btnThread.start(callback(this, &CombatAce::btnThreadFunc));
+    updateThread.start(callback(this, &FlyingAce::updateThreadFunc));
+    renderThread.start(callback(this, &FlyingAce::renderThreadFunc));
+    btnThread.start(callback(this, &FlyingAce::btnThreadFunc));
 }
 
-void CombatAce::update() {
+void FlyingAce::update() {
     updateSemaphore.release();
 }
 
-void CombatAce::render() {
+void FlyingAce::render() {
     lcd.cls();
     renderSemaphore.release();
 }
 
-void CombatAce::updateThreadFunc() {
+void FlyingAce::updateThreadFunc() {
     // Obstacle obstacles[4] = {o1, o2, o3, o4};
     while (!ship.isDestroyed()) {
         updateSemaphore.acquire();
@@ -73,7 +73,7 @@ void CombatAce::updateThreadFunc() {
     }
 }
 
-void CombatAce::renderThreadFunc() {
+void FlyingAce::renderThreadFunc() {
     // Obstacle obstacles[4] = {o1, o2, o3, o4};
     bool resume = 1;
     while (resume) {
@@ -95,7 +95,7 @@ void CombatAce::renderThreadFunc() {
     }
 }
 
-void CombatAce::btnThreadFunc() {
+void FlyingAce::btnThreadFunc() {
     bool resume = 1;
     while (resume) {
         btnSemaphore.acquire();
@@ -110,10 +110,10 @@ void CombatAce::btnThreadFunc() {
     }
 }
 
-int CombatAce::getScore() {
+int FlyingAce::getScore() {
     return score;
 }
 
-bool CombatAce::isGameOver() {
+bool FlyingAce::isGameOver() {
     return gameOver;
 }

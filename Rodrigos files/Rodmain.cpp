@@ -1,5 +1,5 @@
 #include "mbed.h"
-#include "CombatAce.h"
+#include "FlyingAce.h"
 #include "Constants.h"
 #include "Ship.h"
 
@@ -18,7 +18,8 @@ Semaphore updateSemaphore(0,1);
 Semaphore renderSemaphore(0,1);
 Semaphore btnSemaphore(0,1);
 
-InterruptIn lu(D6, PullUp), ld(D7, PullUp), exitBtn(D8, PullUp), ru(D10, PullUp), rd(D11, PullUp); 
+InterruptIn left_up(D8, PullUp), left_down(D9, PullUp),
+console_button(D6, PullUp), right_up(D10, PullUp), right_down(D11, PullUp); 
 
 Direction direction = UP;
 
@@ -33,12 +34,12 @@ void downPressed() {
 }
 
 int main() {
-    CombatAce game(1);
+    FlyingAce game(1);
     
-    lu.fall(&upPressed);
-    ld.fall(&downPressed);
-    ru.fall(&upPressed);
-    rd.fall(&downPressed);
+    left_up.fall(&upPressed);
+    left_down.fall(&downPressed);
+    right_up.fall(&upPressed);
+    right_down.fall(&downPressed);
     
     while (1) {
         if (game.isGameOver()) {

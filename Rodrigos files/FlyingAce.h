@@ -5,7 +5,7 @@
 #include "Obstacle.h"
 
 
-class CombatAce {
+class FlyingAce {
     private:
         Ship ship;
         Obstacle obstacle; //, o2, o3, o4;
@@ -14,7 +14,7 @@ class CombatAce {
         bool gameOver;
     public:
 
-        CombatAce(int playerNumber);
+        FlyingAce(int playerNumber);
         
         void writeSprites();
         void startGameloop();
