@@ -24,25 +24,24 @@ void down_callback(){   //  down button callback
 void main_menu_func(){      //  displays the starting sequence
     lcd.cls(); //clears the lcd screen
     lcd.locate(0,0); //set cursor on row number 1 
-    lcd.printf("   Flying Ace\n"); //displays the message Hello World on the LCD
+    lcd.printf("   Flying Ace\n"); //displays flying ace on the LCD
     thread_sleep_for(2000);
 
     lcd.locate(0,0); //set cursor on row number 1 
-    lcd.printf("> SinglePlayer"); //displays the select option for "Flying Ace"
+    lcd.printf("> SinglePlayer"); //displays the select option for "singleplayer"
     lcd.locate(0,1);//set cursor on row 2
-    lcd.printf("  Multi-Player"); //displays the select option for "Combat Ace"
+    lcd.printf("  Multi-Player"); //displays the select option for "multiplayer"
 }
 
 void button_func(){     // moves arrow up and down
-
     while(gamemode_wait == false){
         button_sem.acquire();
 
         if (up_button == true){
             lcd.locate(0,0); //set cursor on row number 1 
-            lcd.printf("> SinglePlayer"); //displays the select option for "Flying Ace"
+            lcd.printf("> SinglePlayer"); //displays the select option for "singleplayer"
             lcd.locate(0,1);//set cursor on row 2
-            lcd.printf("  Multi-Player"); //displays the select option for "Combat Ace"
+            lcd.printf("  Multi-Player"); //displays the select option for "multiplayer"
             singleplayer = true;
             multiplayer = false;
         }
@@ -50,9 +49,9 @@ void button_func(){     // moves arrow up and down
         else{
             if(down_button == true){
                 lcd.locate(0,0); //set cursor on row number 1 
-                lcd.printf("  SinglePlayer"); //displays the select option for "Flying Ace"
+                lcd.printf("  SinglePlayer"); //displays the select option for "singleplayer"
                 lcd.locate(0,1);//set cursor on row 2
-                lcd.printf("> Multi-Player"); //displays the select option for "Combat Ace"
+                lcd.printf("> Multi-Player"); //displays the select option for "multiplayer"
                 multiplayer = true;
                 singleplayer = false;
             }
@@ -63,7 +62,18 @@ void button_func(){     // moves arrow up and down
 }
 
 void selection_func(){      // selects the gamemode when console button is pressed
-    gamemode_wait = true;
+
+    if (gamemode_wait == false){
+        gamemode_wait = true;
+    }
+    else{
+        gamemode_wait = false;
+        
+
+        // gamemode exit function
+        // delete game...
+
+    }
     console_sem.release();
 }
 
@@ -77,7 +87,6 @@ void singleplayer_game(){   //  loads the singleplayer mode
         lcd.printf("Mode\n");
         thread_sleep_for(500);  
     }
-
 }
 
 void multiplayer_game(){    //  loads the multiplayer mode
