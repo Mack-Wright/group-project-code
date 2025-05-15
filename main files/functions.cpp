@@ -1,6 +1,6 @@
 #include "prototypes.h"
-
-TextLCD lcd(D0, D1, D2, D3, D4, D5, TextLCD::LCD16x2);
+#include "Constants.h"
+#include "FlyingAce.h"
 
 Semaphore button_sem(0,1);
 Semaphore console_sem(0,1);
@@ -100,10 +100,38 @@ void multiplayer_game(){    //  loads the multiplayer mode
     }
 }  
 
+Direction direction = UP;
+
+void upPressed() {
+    btnSemaphore.release();
+    direction = UP;
+}
+
+void downPressed() {
+    btnSemaphore.release();
+    direction = DOWN;
+}
+
 void game_func(){   //  launches the gamemode
     console_sem.acquire();
     if (singleplayer == true){
-        singleplayer_game();
+        FlyingAce game(1);
+        left_up.fall(&upPressed);
+        left_down.fall(&downPressed);
+        right_up.fall(&upPressed);
+        right_down.fall(&downPressed);
+    
+        while (1) 
+        {
+            if (game.isGameOver()) 
+            {
+                thread_sleep_for(1000);
+                lcd.cls();
+                lcd.printf("   Game Over!\n   Score: %d", game.getScore());
+                delete &game;
+            }
+    
+        }
     }
     else{
         if (multiplayer == true){

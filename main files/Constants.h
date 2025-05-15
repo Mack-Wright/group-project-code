@@ -23,6 +23,12 @@ extern Semaphore updateSemaphore;
 extern Semaphore renderSemaphore;
 extern Semaphore btnSemaphore;
 
+extern InterruptIn left_up;
+extern InterruptIn left_down;
+extern InterruptIn console_button;
+extern InterruptIn right_up;
+extern InterruptIn right_down; 
+
 enum Direction {
     UP, 
     DOWN

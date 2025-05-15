@@ -2,6 +2,7 @@
 #include "FlyingAce.h"
 #include "Constants.h"
 #include "Ship.h"
+#include "prototypes.h"
 
 TextLCD lcd(D0, D1, D2, D3, D4, D5, TextLCD::LCD16x2);
 
@@ -20,33 +21,24 @@ Semaphore btnSemaphore(0,1);
 
 InterruptIn left_up(D8, PullUp), left_down(D9, PullUp),
 console_button(D6, PullUp), right_up(D10, PullUp), right_down(D11, PullUp); 
+Thread game;    //  separate thread for console button func
 
-Direction direction = UP;
+int main(){
 
-void upPressed() {
-    btnSemaphore.release();
-    direction = UP;
-}
-
-void downPressed() {
-    btnSemaphore.release();
-    direction = DOWN;
-}
-
-int main() {
-    FlyingAce game(1);
+    game.start(game_func);
     
-    left_up.fall(&upPressed);
-    left_down.fall(&downPressed);
-    right_up.fall(&upPressed);
-    right_down.fall(&downPressed);
+    console_button.fall(selection_func);    //  polling buttons
+
+    left_up.fall(up_callback);
+    left_down.fall(down_callback);
+
+    right_up.fall(up_callback);
+    right_down.fall(down_callback);
+
+
+    main_menu_func();
+    button_func(); 
     
-    while (1) {
-        if (game.isGameOver()) {
-            thread_sleep_for(1000);
-            lcd.cls();
-            lcd.printf("   Game Over!\n   Score: %d", game.getScore());
-            delete &game;
-        }
+    while(true){ 
     }
 }
